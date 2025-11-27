@@ -12,20 +12,27 @@ dotenv.config({});
 
 const app = express();
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://jobportalservice.netlify.app",
+    ],
 
-const corsOptions = {
-  origin: [
-    "https://jobportalservice.netlify.app",
-    "http://localhost:5173"   
-  ],
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Expires",
+      "Pragma",
+    ],
+    credentials: true,
+  })
+);
 
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));  
+app.options("*", cors(corsOptions));
 
 // ✅ Middlewares
 app.use(express.json());
@@ -42,5 +49,5 @@ const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   connectDB();
-  console.log(`Server Started Running Successfully` );
+  console.log(`Server Started Running Successfully`);
 });
