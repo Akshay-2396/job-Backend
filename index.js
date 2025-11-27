@@ -9,31 +9,38 @@ import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 
 dotenv.config({});
+
 const app = express();
 
-//middleware
+
+const corsOptions = {
+  origin: [
+    "https://jobportalservice.netlify.app",
+    "http://localhost:5173"   
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));  
+
+// ✅ Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: ["https://jobportalservice.netlify.app"],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-
-const PORT = process.env.PORT || 5001;
-
- 
-//api's
-
+// ✅ Routes
 app.use("/api/user", userRoute);
 app.use("/api/company", companyRoute);
 app.use("/api/job", jobRoute);
 app.use("/api/application", applicationRoute);
 
+const PORT = process.env.PORT || 5001;
+
 app.listen(PORT, () => {
   connectDB();
-  console.log(`Server Started Running Successfully`);
+  console.log(`Server Started Running Successfully` );
 });
