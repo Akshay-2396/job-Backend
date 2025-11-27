@@ -32,7 +32,7 @@ app.use(
 );
 
 
-app.options("*", cors(corsOptions));
+app.options("*", cors());
 
 // ✅ Middlewares
 app.use(express.json());
