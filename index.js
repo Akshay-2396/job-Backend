@@ -17,16 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: ["http://localhost:5173", 
+app.use(cors( {
+  origin: [
     "https://jobportalservice.netlify.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-};
+}));
 
-app.use(cors(corsOptions));
+
 
 
 const PORT = process.env.PORT || 5001;
@@ -39,5 +39,5 @@ app.use("/api/application", applicationRoute);
 
 app.listen(PORT, () => {
   connectDB();
-  console.log(`✅ Server running Running Successfully `);
+  console.log(` Server running Running Successfully `);
 });
