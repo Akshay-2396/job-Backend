@@ -82,7 +82,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     const sanitizedUser = {
       _id: user._id,
@@ -101,12 +101,14 @@ export const login = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite:"None",
+        path:"/",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json({
         message: `Welcome back ${user.fullname}`,
         user: sanitizedUser,
         success: true,
+        token:token
       });
   } catch (error) {
     console.error(error);
