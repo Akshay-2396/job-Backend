@@ -1,4 +1,3 @@
-
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -18,17 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 const corsOptions = {
-  origin: "https://jobportalservice.netlify.app",  
+  origin: ["http://localhost:5173", 
+    "https://jobportalservice.netlify.app"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-
 app.use(cors(corsOptions));
-app.options("/", cors(corsOptions));
 
 
 const PORT = process.env.PORT || 5001;
