@@ -97,7 +97,7 @@ export const login = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("token", "", {
+      .cookie("token", token, {
         httpOnly: true,
         secure: true,
         sameSite:"None",
