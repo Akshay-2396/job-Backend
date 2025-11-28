@@ -75,7 +75,7 @@ export const login = async (req, res) => {
       });
     }
 
-    if (user.role !== role) {
+    if (user.role.toLowerCase() !== role.toLowerCase()) {
       return res.status(403).json({
         message: "You don't have the necessary role",
         success: false,
